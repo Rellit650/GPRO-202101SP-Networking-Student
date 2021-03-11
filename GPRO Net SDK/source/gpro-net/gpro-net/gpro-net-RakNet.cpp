@@ -40,10 +40,25 @@ namespace gproNet
 	bool cRakNetManager::ProcessMessage(RakNet::BitStream& bitstream, RakNet::SystemAddress const sender, RakNet::Time const dtSendToReceive, RakNet::MessageID const msgID)
 	{
 		// process messages that can be handled the same way for all types of peers
-		//switch (msgID)
-		//{
-		//}
+		switch (msgID)
+		{
+		
+		case ID_GPRO_MESSAGE: 
+		{
+			int index, room;
+			bitstream.Read(room);
+			index = peer->GetIndexFromSystemAddress(sender);
+
+			//we would identify which room they are in and send message accordingly
+		}
+
+		}
 		return false;
+	}
+
+	int cRakNetManager::AddToGameRoom(int roomNum, int index) 
+	{
+		
 	}
 
 	RakNet::BitStream& cRakNetManager::WriteTimestamp(RakNet::BitStream& bitstream)

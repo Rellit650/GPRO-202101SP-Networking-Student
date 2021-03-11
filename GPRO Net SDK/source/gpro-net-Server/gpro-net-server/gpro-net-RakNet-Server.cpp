@@ -50,12 +50,27 @@ namespace gproNet
 		switch (msgID)
 		{
 		case ID_NEW_INCOMING_CONNECTION:
-			//printf("A connection is incoming.\n");
+			//int index;
+			//bitstream.Read(room);
+			//index = peer->GetIndexFromSystemAddress(sender);
+
+			//DataStructures::List<RakNet::SystemAddress> addresses;
+			//DataStructures::List<RakNet::RakNetGUID> GUIDS;
+
+			//peer->GetSystemList(addresses, GUIDS);
+
+
+			//AddToGameRoom(room, index);
 			return true;
 		case ID_NO_FREE_INCOMING_CONNECTIONS:
 			//printf("The server is full.\n");
 			return true;
 		case ID_DISCONNECTION_NOTIFICATION:
+
+			//int index;
+			//bitstream.Read(room);
+			//index = peer->GetIndexFromSystemAddress(sender);
+			
 			//printf("A client has disconnected.\n");
 			return true;
 		case ID_CONNECTION_LOST:
@@ -71,6 +86,15 @@ namespace gproNet
 			WriteTest(bitstream_w, "Hello client from server");
 			peer->Send(&bitstream_w, MEDIUM_PRIORITY, UNRELIABLE_SEQUENCED, 0, sender, false);
 		}	return true;
+
+		case ID_GPRO_JOIN_GAMEROOM: 
+		{
+			int index = peer->GetIndexFromSystemAddress(sender);
+			int room;
+			bitstream.Read(room);
+
+			gameRoomList[room].JoinRoom(index);
+		}
 
 		}
 		return false;

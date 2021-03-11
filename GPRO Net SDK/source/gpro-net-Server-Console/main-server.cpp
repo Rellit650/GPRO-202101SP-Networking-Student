@@ -23,11 +23,31 @@
 */
 
 #include "gpro-net/gpro-net-server/gpro-net-RakNet-Server.hpp"
+//#include "Vector"
+
+/*
+struct MasterServer
+{
+	gproNet::cRakNetServer server;
+	std::vector<gameRoom> GameRoomVector;
+};
+
+struct gameRoom
+{
+	short typeGame;
+	short numPlayers;
+	short numSpectators;
+	std::vector<int> connections;
+};
+*/
+	
+
 
 
 int main(int const argc, char const* const argv[])
 {
 	gproNet::cRakNetServer server;
+	//MasterServer* ms = new MasterServer;
 
 	while (1)
 	{

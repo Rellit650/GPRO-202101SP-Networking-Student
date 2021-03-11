@@ -30,6 +30,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <Vector>
 
 #include "RakNet/RakPeerInterface.h"
 #include "RakNet/MessageIdentifiers.h"
@@ -54,11 +55,33 @@ namespace gproNet
 	{
 		ID_GPRO_MESSAGE_COMMON_BEGIN = ID_USER_PACKET_ENUM,
 
-
+		ID_GPRO_MESSAGE,
 
 		ID_GPRO_MESSAGE_COMMON_END
 	};
 
+	struct GameRoom 
+	{
+		short typeGame;
+		short numPlayers;
+		short numSpectators;
+		std::vector<int> connections;
+		
+		int JoinRoom(int index) 
+		{
+			connections.push_back(index);
+			numPlayers++;
+			return 1;
+		}
+
+		int LeaveRoom(int index) 
+		{
+			/*
+			use vector iter to find index and remove
+			*/
+			return 1;
+		}
+	};
 
 	// cRakNetManager
 	//	Base class for RakNet peer management.
@@ -69,6 +92,10 @@ namespace gproNet
 		// peer
 		//	Pointer to RakNet peer instance.
 		RakNet::RakPeerInterface* peer;
+
+		//std::vector<int> connections;
+
+		std::vector<GameRoom> gameRoomList;
 
 		// protected methods
 	protected:
@@ -119,6 +146,7 @@ namespace gproNet
 		//	Unpack and process packets.
 		//		return: number of messages processed
 		int MessageLoop();
+		int AddToGameRoom(int roomNum, int index);
 	};
 
 }
